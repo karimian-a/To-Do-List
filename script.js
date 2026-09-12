@@ -12,50 +12,62 @@ const checkedEl = $.querySelector("#checked");
 const trashBtn = $.querySelector(".trash-icon");
 const taskNotFound = $.querySelector(".task-not-found");
 
+// To save the task to local storage
+const saveTask = [];
+
 // <<----<< Add task >>---->>
-addBtnEl.addEventListener("click", addTask);
-
-// <<----<< For save task >>---->>
-const saveTask = []
-
-// <<----<< Expand with a mouse click on the button >>---->>
 function addTask() {
   const inputValue = inpEl.value;
 
-  if (inputValue.trim()) {
-    inpEl.classList.remove("inpErr");
+  // If the input was empty
+  if (!inputValue.trim()) {
+    inpEl.classList.add("inpErr");
+    return;
+  }
+  inpEl.classList.remove("inpErr");
 
-    const newTask = $.createElement("li");
+  // Save task to local storage
+  saveTask.push({
+    task: inputValue,
+    status: "new",
+  });
 
-    newTask.innerHTML = `
-      <p>${inputValue}</p>
+  savaTask();
+
+  creatTaskEl();
+
+  inpEl.value = "";
+}
+
+// <<----<< Save task to local storage >>---->>
+function savaTask() {
+  localStorage.setItem("userTask", JSON.stringify(saveTask));
+}
+
+// <<----<< Create a new tag for a new task >>---->>
+function creatTaskEl() {
+  tasksBoxEl.innerHTML = "";
+  
+  saveTask.forEach(function (savedTask) {
+    const newTaskEl = $.createElement("li");
+    console.log(savedTask.task);
+
+    newTaskEl.innerHTML = `
+      <p class="task-text">${savedTask.task}</p>
       <div class="buttons">
         <button class="checkbox" onclick="doneTask(event)"></button>
         <button class="trash-icon" onclick="delUserTask(event)"><i class="bi bi-trash3"></i></button>
       </div>
     `;
 
-    newTask.classList.add("user-task");
+    newTaskEl.classList.add("user-task");
 
-    tasksBoxEl.prepend(newTask);
-
-    inpEl.value = "";
-  } else {
-    inpEl.classList.add("inpErr");
-  }
-
-  saveTask.push ({
-    task: inputValue,
-    status: "new",
-  })
-
-  savaTask()
+    tasksBoxEl.prepend(newTaskEl);
+  });
 }
 
-// <<----<< Save task in localStorage >>---->>
-function savaTask(){
-  localStorage.setItem('userTask', JSON.stringify(saveTask))
-}
+// <<----<< Expand with a mouse click on the button >>---->>
+addBtnEl.addEventListener("click", addTask);
 
 // <<----<< Expand with the Enter key >>---->>
 inpEl.addEventListener("keypress", (e) => {
