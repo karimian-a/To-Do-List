@@ -4,7 +4,7 @@
 const $ = document;
 
 const inpEl = $.querySelector("input");
-const btnEl = $.querySelector("button");
+const addBtnEl = $.querySelector("button");
 const tasksBoxEl = $.querySelector(".tasks");
 const userTaskEl = $.querySelector(".user-task");
 const checkBoxEl = $.querySelector(".checkbox");
@@ -13,7 +13,10 @@ const trashBtn = $.querySelector(".trash-icon");
 const taskNotFound = $.querySelector(".task-not-found");
 
 // <<----<< Add task >>---->>
-btnEl.addEventListener("click", addTask);
+addBtnEl.addEventListener("click", addTask);
+
+// <<----<< For save task >>---->>
+const saveTask = []
 
 // <<----<< Expand with a mouse click on the button >>---->>
 function addTask() {
@@ -34,24 +37,34 @@ function addTask() {
 
     newTask.classList.add("user-task");
 
-    tasksBoxEl.append(newTask);
+    tasksBoxEl.prepend(newTask);
 
     inpEl.value = "";
   } else {
     inpEl.classList.add("inpErr");
   }
+
+  saveTask.push ({
+    task: inputValue,
+    status: "new",
+  })
+
+  savaTask()
+}
+
+// <<----<< Save task in localStorage >>---->>
+function savaTask(){
+  localStorage.setItem('userTask', JSON.stringify(saveTask))
 }
 
 // <<----<< Expand with the Enter key >>---->>
 inpEl.addEventListener("keypress", (e) => {
-  console.log(e);
-
   if (e.key === "Enter") {
     addTask();
   }
 });
 
-// <<----<< Task completed >>---->>
+// <<----<< Done >>---->>
 function doneTask(event) {
   const checkBox = event.target;
   checkBox.classList.toggle("checked");
@@ -60,7 +73,7 @@ function doneTask(event) {
   userTask.classList.toggle("done");
 }
 
-// <<----<< Delete task >>---->>
+// <<----<< Delete >>---->>
 function delUserTask(event) {
   const userTask = event.target.closest(".user-task");
   userTask.remove();
