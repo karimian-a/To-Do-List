@@ -10,10 +10,20 @@ const userTaskEl = $.querySelector(".user-task");
 const checkBoxEl = $.querySelector(".checkbox");
 const checkedEl = $.querySelector("#checked");
 const trashBtn = $.querySelector(".trash-icon");
-const taskNotFound = $.querySelector(".task-not-found");
+// const taskNotFound = $.querySelector(".task-not-found");
 
 // To save the task to local storage
-const saveTask = [];
+let saveTask = [];
+
+// if(saveTask = []) taskNotFound.classList.add('test')
+
+// <<----<< Show previous tasks >>---->>
+window.onload = function () {
+  if (JSON.parse(localStorage.getItem("userTask"))) {
+    saveTask = JSON.parse(localStorage.getItem("userTask"));
+    creatTaskEl();
+  }
+};
 
 // <<----<< Add task >>---->>
 function addTask() {
@@ -31,11 +41,11 @@ function addTask() {
     task: inputValue,
     status: "new",
   });
-
   savaTask();
 
   creatTaskEl();
 
+  // Reset input
   inpEl.value = "";
 }
 
@@ -46,21 +56,22 @@ function savaTask() {
 
 // <<----<< Create a new tag for a new task >>---->>
 function creatTaskEl() {
-  tasksBoxEl.innerHTML = "";
-  
-  saveTask.forEach(function (savedTask) {
+  tasksBoxEl.innerHTML = `<p class="task-not-found">No tasks registered.</p>`;
+
+  saveTask.forEach(function (savedTask, i) {
     const newTaskEl = $.createElement("li");
-    console.log(savedTask.task);
 
     newTaskEl.innerHTML = `
       <p class="task-text">${savedTask.task}</p>
       <div class="buttons">
-        <button class="checkbox" onclick="doneTask(event)"></button>
-        <button class="trash-icon" onclick="delUserTask(event)"><i class="bi bi-trash3"></i></button>
+        <button class="checkbox" onclick="doneTask(${i})"></button>
+        <button class="trash-icon" onclick="delUserTask(${i})"><i class="bi bi-trash3"></i></button>
       </div>
     `;
 
     newTaskEl.classList.add("user-task");
+
+    if (saveTask[i].status === "done") newTaskEl.classList.add("done");
 
     tasksBoxEl.prepend(newTaskEl);
   });
@@ -77,16 +88,23 @@ inpEl.addEventListener("keypress", (e) => {
 });
 
 // <<----<< Done >>---->>
-function doneTask(event) {
-  const checkBox = event.target;
-  checkBox.classList.toggle("checked");
+function doneTask(i) {
+  if (saveTask[i].status === "new") {
+    saveTask[i].status = "done";
+  } else {
+    saveTask[i].status = "new";
+  }
 
-  const userTask = event.target.closest(".user-task");
-  userTask.classList.toggle("done");
+  savaTask();
+  creatTaskEl();
 }
 
 // <<----<< Delete >>---->>
-function delUserTask(event) {
+function delUserTask(i) {
   const userTask = event.target.closest(".user-task");
   userTask.remove();
+
+  saveTask.splice(i, 1);
+  savaTask();
+  creatTaskEl();
 }

@@ -140,12 +140,12 @@ h2 {
   position: relative;
 }
 
-.checked {
-  background: radial-gradient(circle, var(--accent) 55%, var(--text) 0%);
-}
-
 .done {
   background-color: #b0ffb0;
+}
+
+.done .checkbox{
+  background: radial-gradient(circle, var(--accent) 55%, var(--text) 0%);
 }
 
 .trash-icon {
