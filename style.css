@@ -1,9 +1,9 @@
 :root {
-  --text: #eae4f3;
-  --background: #0b0613;
-  --primary: #b595e5;
-  --secondary: #431786;
-  --accent: #8642eb;
+  --text: #eaf2f1;
+  --background: #0c1213;
+  --primary: #afcecb;
+  --secondary: #415869;
+  --accent: #6d86a4;
 }
 
 * {
@@ -55,6 +55,8 @@ h2 {
 }
 
 .add > input {
+  color: var(--text);
+  background-color: var(--background);
   padding-left: 20px;
   width: 100%;
   font-size: 1.2rem;
@@ -66,10 +68,6 @@ h2 {
   font-size: 2.2rem;
   transition: all 0.1s;
   padding-bottom: 5px;
-}
-
-.add > button:hover {
-  background-color: var(--accent);
 }
 
 .tasks {
@@ -140,10 +138,6 @@ h2 {
   position: relative;
 }
 
-.done {
-  background-color: #b0ffb0;
-}
-
 .done .checkbox{
   background: radial-gradient(circle, var(--accent) 55%, var(--text) 0%);
 }
@@ -156,13 +150,9 @@ h2 {
 }
 
 .trash-icon:hover {
-  color: var(--accent);
+  color: var(--secondary);
 }
 
 .hidden {
   display: none;
-}
-
-.inpErr {
-  background-color: #ffb0b0;
 }

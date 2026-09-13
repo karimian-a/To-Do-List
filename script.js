@@ -31,10 +31,8 @@ function addTask() {
 
   // If the input was empty
   if (!inputValue.trim()) {
-    inpEl.classList.add("inpErr");
     return;
   }
-  inpEl.classList.remove("inpErr");
 
   // Save task to local storage
   saveTask.push({
