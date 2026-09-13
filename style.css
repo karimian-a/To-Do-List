@@ -14,8 +14,7 @@
 
 body {
   background-color: var(--background);
-  font-family: Grandstander, tahoma;
-  color: #fff;
+  font-family: Grandstander, sans-serif, tahoma;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -26,7 +25,7 @@ input,
 button {
   border: none;
   outline: none;
-  font-family: Grandstander, tahoma;
+  font-family: Grandstander, sans-serif, tahoma;
   padding: 10px;
   border-radius: 40px;
 }
@@ -35,13 +34,13 @@ button {
   cursor: pointer;
 }
 
-h2 {
+.title {
+  color: var(--text);
   font-size: 2.2rem;
-  margin-bottom: 20px;
   text-align: center;
 }
 
-.todolist {
+.todolist-box {
   background-color: var(--secondary);
   margin-inline: 15px;
   padding: 20px;
@@ -49,12 +48,13 @@ h2 {
   width: 530px;
 }
 
-.add {
+.add-task-el {
   display: flex;
   gap: 5px;
+  margin: 20px 0 30px 0;
 }
 
-.add > input {
+.add-task-el > input {
   color: var(--text);
   background-color: var(--background);
   padding-left: 20px;
@@ -62,28 +62,27 @@ h2 {
   font-size: 1.2rem;
 }
 
-.add > button {
-  background-color: var(--primary);
+.add-task-el > button {
   color: var(--background);
+  background-color: var(--primary);
   font-size: 2.2rem;
   transition: all 0.1s;
   padding-bottom: 5px;
 }
 
-.tasks {
-  height: 400px;
-  overflow-y: auto;
-  margin-top: 30px;
+.tasks-box {
   background-color: var(--background);
+  height: 400px;
   padding: 10px;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
   position: relative;
 }
 
-.tasks::-webkit-scrollbar {
+.tasks-box::-webkit-scrollbar {
   display: none;
 }
 
@@ -100,9 +99,9 @@ h2 {
 
 .user-task {
   width: 100%;
-  background-color: var(--text);
-  color: var(--background);
   font-size: 1.1rem;
+  color: var(--background);
+  background-color: var(--text);
   padding: 10px 20px;
   border-radius: 30px;
   display: flex;
@@ -112,18 +111,14 @@ h2 {
   z-index: 2;
 }
 
-.user-text {
-  font-size: 1.2rem;
-  flex-grow: 1;
-  line-height: 1.3;
-}
-
 .task-text {
   max-width: 330px;
+  font-size: 1.2rem;
+  line-height: 1.3;
   word-wrap: break-word;
 }
 
-.buttons {
+.task-control-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,9 +126,9 @@ h2 {
 }
 
 .checkbox {
-  background-color: var(--text);
   width: 25px;
   height: 25px;
+  background-color: var(--text);
   border: 2px solid var(--accent);
   position: relative;
 }
@@ -143,9 +138,9 @@ h2 {
 }
 
 .trash-icon {
+  color: var(--background);
   font-size: 1.5rem;
   background-color: transparent;
-  color: var(--background);
   transition: all 0.1s;
 }
 

@@ -5,17 +5,14 @@ const $ = document;
 
 const inpEl = $.querySelector("input");
 const addBtnEl = $.querySelector("button");
-const tasksBoxEl = $.querySelector(".tasks");
+const tasksBoxEl = $.querySelector(".tasks-box");
 const userTaskEl = $.querySelector(".user-task");
 const checkBoxEl = $.querySelector(".checkbox");
 const checkedEl = $.querySelector("#checked");
 const trashBtn = $.querySelector(".trash-icon");
-// const taskNotFound = $.querySelector(".task-not-found");
 
 // To save the task to local storage
 let saveTask = [];
-
-// if(saveTask = []) taskNotFound.classList.add('test')
 
 // <<----<< Show previous tasks >>---->>
 window.onload = function () {
@@ -61,7 +58,7 @@ function creatTaskEl() {
 
     newTaskEl.innerHTML = `
       <p class="task-text">${savedTask.task}</p>
-      <div class="buttons">
+      <div class="task-control-buttons">
         <button class="checkbox" onclick="doneTask(${i})"></button>
         <button class="trash-icon" onclick="delUserTask(${i})"><i class="bi bi-trash3"></i></button>
       </div>
